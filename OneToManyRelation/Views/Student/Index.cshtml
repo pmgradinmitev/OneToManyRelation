@@ -1,0 +1,74 @@
+﻿@model StudentTableViewModel;
+
+<div class="row">
+    <div class="col-12">
+        <h1>Списък с ученици</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 d-flex justify-content-end">
+        <a asp-controller="Student" asp-action="Create" class="btn btn-primary">Добави ученик</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card mt-5 border-primary shadow-sm">
+            <div class="card-header bg-primary bg-gradient text-white d-flex justify-content-between">
+                <div>
+                    <i class="bi bi-list"></i>Ученици
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive" style="overflow-y: hidden">
+                    <!-- align-middle text-nowrap -->
+                    <table class="table table-bordered table-hover align-middle text-nowrap m-0" style="border-style: hidden;">
+                        <thead class="text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>
+                                    Име
+                                </th>
+                                <th>
+                                    Години
+                                </th>
+                                <th>
+                                    Учител
+                                </th>
+                                <th style="width: 75px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var count = 1;
+                                foreach (var obj in Model.Data)
+                                {
+                                    var collapseId = $"collapse-{count}";
+
+                                    <tr>
+                                        <td class="text-center">@(count++)</td>
+                                        <td class="text-center">@obj.Name</td>
+                                        <td class="text-center">@obj.Age</td>
+                                        <td class="text-center">@obj.Teacher.Name</td>
+                                        <td class="text-center">
+                                            <div class="d-flex flex-row justify-content-center">
+                                                <a asp-controller="Student" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </a>
+                                                <form method="post" action="@Url.Action("Delete", "Student")" onsubmit="return confirm('Наистина ли искате да изтриете този ученик: @obj.Name?');">
+                                                    <input type="hidden" name="Id" value="@(obj.Id)" />
+                                                    <button type="submit" style="border: none; color:#0d6efd; background-color: transparent;" title="Изтриване">
+                                                        <i class="bi-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
