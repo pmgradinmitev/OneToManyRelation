@@ -48,7 +48,7 @@
                                         <td class="text-center">@(count++)</td>
                                         <td class="text-center">@obj.Name</td>
                                         <td class="text-center">@obj.Age</td>
-                                        <td class="text-center">@obj.Teacher.Name</td>
+                                        <td class="text-center">@obj.Teacher?.Name</td>
                                         <td class="text-center">
                                             <div class="d-flex flex-row justify-content-center">
                                                 <a asp-controller="Student" asp-action="Update" asp-route-id="@(obj.Id)" title="Редактиране">

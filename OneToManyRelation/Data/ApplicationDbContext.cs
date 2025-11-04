@@ -13,12 +13,12 @@ namespace OneToManyRelation.Data
         public DbSet<Teacher> Teachers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Student>()
             .HasOne(s => s.Teacher)             // each student has one teacher
             .WithMany(t => t.Students)          // each teacher has many students
-            .HasForeignKey(s => s.TeacherId);   // use TeacherId as FK
-            //.IsRequired(false);               // makes the relationship optional
+            .HasForeignKey(s => s.TeacherId)    // use TeacherId as FK
+            .IsRequired(false)                  // makes the relationship optional
+            .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
